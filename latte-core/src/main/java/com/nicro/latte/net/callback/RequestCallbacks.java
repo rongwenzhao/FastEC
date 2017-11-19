@@ -1,6 +1,7 @@
 package com.nicro.latte.net.callback;
 
 
+import com.nicro.latte.ui.LatteLoader;
 import com.nicro.latte.ui.LoaderStyle;
 
 import retrofit2.Call;
@@ -48,7 +49,7 @@ public class RequestCallbacks implements Callback<String> {
         }
 
         if (LOADER_STYLE != null) {
-           // LatteLoader.stopLoading();
+            LatteLoader.stopLoading();
         }
 
     }
@@ -64,7 +65,7 @@ public class RequestCallbacks implements Callback<String> {
         }
 
         if (LOADER_STYLE != null) {
-            // LatteLoader.stopLoading();
+            LatteLoader.stopLoading();
         }
     }
 }
