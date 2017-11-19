@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 26
@@ -30,4 +31,21 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     compile project(':latte-annotations')
+
+    //字体图标
+    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2' // (v4.5)
+    compile 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2' // (v2.0.1)
+    //Fregment依赖  https://github.com/YoKeyword/Fragmentation
+    compile 'me.yokeyword:fragmentation:1.1.8'
+    compile 'me.yokeyword:fragmentation-swipeback:1.1.8'
+    //注入依赖butterknife  https://github.com/JakeWharton/butterknife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //网络请求
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    //AVLoadingIndicatorView 进度条 https://github.com/81813780/AVLoadingIndicatorView
+    compile 'com.wang.avi:library:2.1.3'
+
 }
