@@ -5,9 +5,10 @@ package com.nicro.latte.app;
  * 枚举类型，全应用单例
  */
 
-public enum ConfigType {
+public enum ConfigKeys {
     API_HOST,//服务器访问地址
     APPLICATION_CONTEXT,
     CONFIG_READY,//配置是否完成
-    ICON
+    ICON,
+    INTERCEPTOR
 }
