@@ -4,7 +4,9 @@ import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -46,6 +48,16 @@ public interface RestService {
     Call<String> post(@Url String url, @FieldMap Map<String, Object> params);
 
     /**
+     * post一个原始数据，指字符串
+     *
+     * @param url
+     * @param body
+     * @return
+     */
+    @POST
+    Call<String> postRaw(@Url String url, @Body RequestBody body);
+
+    /**
      * put请求，类似post
      *
      * @param url
@@ -55,6 +67,16 @@ public interface RestService {
     @FormUrlEncoded
     @POST
     Call<String> put(@Url String url, @FieldMap Map<String, Object> params);
+
+    /**
+     * put一个原始数据，指字符串
+     *
+     * @param url
+     * @param body
+     * @return
+     */
+    @POST
+    Call<String> putRaw(@Url String url, @Body RequestBody body);
 
     /**
      * 请求删除数据(没用过)
@@ -76,7 +98,7 @@ public interface RestService {
      */
     @Streaming
     @GET
-    Call<RequestBody> download(@Url String url, @QueryMap Map<String, Object> params);
+    Call<ResponseBody> download(@Url String url, @QueryMap Map<String, Object> params);
 
     /**
      * 注：@Multipart发送Multipart数据,使用@Part注解定义要发送的每个文件

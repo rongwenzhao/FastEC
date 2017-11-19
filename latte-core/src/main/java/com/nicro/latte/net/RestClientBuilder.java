@@ -8,6 +8,7 @@ import com.nicro.latte.net.callback.IRequest;
 import com.nicro.latte.net.callback.ISuccess;
 import com.nicro.latte.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -27,8 +28,13 @@ public class RestClientBuilder {
     private IFailure mIFailure = null;
     private IError mIError = null;
     private RequestBody mBody = null;
+    private File mFile = null;
     private LoaderStyle mLoaderStyle = null;
     private Context mContext = null;
+    //下载文件需要的变量
+    private String mDownload_dir = null;//下载文件的存放目录
+    private String mExtension;//文件后缀名
+    private String mName;//下载后的文件名
 
     /**
      * default访问权限，支持同类与同包中访问
@@ -59,6 +65,22 @@ public class RestClientBuilder {
      */
     public final RestClientBuilder params(String key, Object value) {
         mParams.put(key, value);
+        return this;
+    }
+
+    /**
+     * 上传的文件初始化
+     *
+     * @param file
+     * @return
+     */
+    public final RestClientBuilder file(File file) {
+        this.mFile = file;
+        return this;
+    }
+
+    public final RestClientBuilder file(String filePath) {
+        this.mFile = new File(filePath);
         return this;
     }
 
@@ -119,6 +141,39 @@ public class RestClientBuilder {
     }
 
     /**
+     * 初始化下载文件需要的变量
+     *
+     * @param download_dir
+     * @return
+     */
+    public final RestClientBuilder dir(String download_dir) {
+        this.mDownload_dir = download_dir;
+        return this;
+    }
+
+    /**
+     * 初始化下载文件需要的变量,扩展名
+     *
+     * @param extension
+     * @return
+     */
+    public final RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
+        return this;
+    }
+
+    /**
+     * 初始化下载文件需要的变量,文件名
+     *
+     * @param fileName
+     * @return
+     */
+    public final RestClientBuilder fileName(String fileName) {
+        this.mName = fileName;
+        return this;
+    }
+
+    /**
      * public RestClient(String URL,
      * WeakHashMap<String, Object> PARAMS,
      * IRequest REQUEST,
@@ -134,6 +189,8 @@ public class RestClientBuilder {
         return new RestClient(mUrl, mParams,
                 mIRequest, mISuccess,
                 mIFailure, mIError,
-                mBody, mLoaderStyle, mContext);
+                mBody, mFile,
+                mLoaderStyle, mContext,
+                mDownload_dir, mExtension, mName);
     }
 }
