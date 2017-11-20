@@ -8,6 +8,8 @@ import android.view.View;
 import com.nicro.latte.delegates.LatteDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.R2;
+import com.nicro.latte.ui.launcher.ScrollLauncherTag;
+import com.nicro.latte.util.storage.LatterPreference;
 import com.nicro.latte.util.timer.BaseTimeTask;
 import com.nicro.latte.util.timer.ITimerListener;
 
@@ -34,7 +36,11 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
      */
     @OnClick(R2.id.tv_launcher_timer)
     void onClickTimerView() {
-
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+            checkIsShowScroll();
+        }
     }
 
     private void initTimer() {
@@ -52,6 +58,15 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
         initTimer();
     }
 
+    //判断是否启动启动页
+    private void checkIsShowScroll() {
+        if (!LatterPreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
+            start(new LauncherScrollDelegate(), SINGLETASK);
+        }else{
+            //检查用户是否登录了app
+        }
+    }
+
     @Override
     public void onTimer() {
         getProxyActivity().runOnUiThread(new Runnable() {
@@ -65,6 +80,7 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
                         if (mTimer != null) {
                             mTimer.cancel();
                             mTimer = null;
+                            checkIsShowScroll();
                         }
                     }
                 }
