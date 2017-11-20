@@ -1,4 +1,4 @@
-package com.nicro.latte.ui;
+package com.nicro.latte.ui.loader;
 
 /**
  * AVLoadingIndicatorView 所提供的所有Indicator类型

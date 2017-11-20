@@ -8,8 +8,8 @@ import com.nicro.latte.net.callback.IRequest;
 import com.nicro.latte.net.callback.ISuccess;
 import com.nicro.latte.net.callback.RequestCallbacks;
 import com.nicro.latte.net.download.DownloadHandler;
-import com.nicro.latte.ui.LatteLoader;
-import com.nicro.latte.ui.LoaderStyle;
+import com.nicro.latte.ui.loader.LatteLoader;
+import com.nicro.latte.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.WeakHashMap;

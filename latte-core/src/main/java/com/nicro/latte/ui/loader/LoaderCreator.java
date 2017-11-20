@@ -1,4 +1,4 @@
-package com.nicro.latte.ui;
+package com.nicro.latte.ui.loader;
 
 import android.content.Context;
 

@@ -6,7 +6,7 @@ import com.nicro.latte.net.callback.IError;
 import com.nicro.latte.net.callback.IFailure;
 import com.nicro.latte.net.callback.IRequest;
 import com.nicro.latte.net.callback.ISuccess;
-import com.nicro.latte.ui.LoaderStyle;
+import com.nicro.latte.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.WeakHashMap;

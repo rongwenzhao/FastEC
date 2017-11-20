@@ -1,8 +1,8 @@
 package com.nicro.latte.net.callback;
 
 
-import com.nicro.latte.ui.LatteLoader;
-import com.nicro.latte.ui.LoaderStyle;
+import com.nicro.latte.ui.loader.LatteLoader;
+import com.nicro.latte.ui.loader.LoaderStyle;
 
 import retrofit2.Call;
 import retrofit2.Callback;
