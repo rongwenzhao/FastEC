@@ -3,7 +3,9 @@ package com.nicro.fastec.example;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Toast;
 
+import com.nicro.latte.app.Latte;
 import com.nicro.latte.delegates.LatteDelegate;
 import com.nicro.latte.net.RestClient;
 import com.nicro.latte.net.callback.IError;
@@ -30,7 +32,7 @@ public class ExampleDelegate extends LatteDelegate {
 
     private void restClientTest() {
         RestClient restClient = RestClient.builder()
-                .url("https://www.baidu.com/")
+                .url("http://127.0.0.1/index")
                 .loader(getContext())
                 .raw("")
                 .params("", "")
@@ -49,7 +51,7 @@ public class ExampleDelegate extends LatteDelegate {
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        //Toast.makeText(Latte.getApplicationContext(), " " + response, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Latte.getApplicationContext(), " " + response, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .error(new IError() {
