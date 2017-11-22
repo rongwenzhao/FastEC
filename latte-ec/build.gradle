@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'org.greenrobot.greendao'//在需要使用的地方，加上此plugin
 
 android {
     compileSdkVersion 26

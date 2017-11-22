@@ -1,14 +1,19 @@
 package com.nicro.latte.ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.nicro.latte.app.AccountManager;
+import com.nicro.latte.app.IUserChecker;
 import com.nicro.latte.delegates.LatteDelegate;
 import com.nicro.latte.ec.R;
+import com.nicro.latte.ui.launcher.ILauncherListener;
 import com.nicro.latte.ui.launcher.LauncherHolderCrreator;
+import com.nicro.latte.ui.launcher.OnLauncherFinishTag;
 import com.nicro.latte.ui.launcher.ScrollLauncherTag;
 import com.nicro.latte.util.storage.LatterPreference;
 
@@ -23,6 +28,16 @@ public class LauncherScrollDelegate extends LatteDelegate implements OnItemClick
     private ConvenientBanner<Integer> convenientBanner = null;
     //存储图片资源id
     private static final ArrayList<Integer> INTEGERS = new ArrayList<>();
+
+    private ILauncherListener iLauncherListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ILauncherListener) {
+            iLauncherListener = (ILauncherListener) activity;
+        }
+    }
 
     private void initBanner() {
         INTEGERS.add(R.mipmap.launcher_01);
@@ -55,6 +70,21 @@ public class LauncherScrollDelegate extends LatteDelegate implements OnItemClick
         if (position == INTEGERS.size() - 1) {
             LatterPreference.setAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name(), true);
             //检查用户是否登录
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if (iLauncherListener != null) {
+                        iLauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                    }
+                }
+
+                @Override
+                public void onNotSignIn() {
+                    if (iLauncherListener != null) {
+                        iLauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
         }
 
     }
