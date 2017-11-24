@@ -16,6 +16,8 @@ import com.nicro.latte.net.callback.IError;
 import com.nicro.latte.net.callback.IFailure;
 import com.nicro.latte.net.callback.ISuccess;
 import com.nicro.latte.util.logger.LatteLogger;
+import com.nicro.latte.wechat.LatteWeChat;
+import com.nicro.latte.wechat.callbacks.IWeChatSignInCallback;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,6 +47,17 @@ public class SignInDelegate extends LatteDelegate {
     @OnClick(R2.id.tv_link_sign_up)
     void onClickLink() {
         start(new SignUpDelegate());
+    }
+
+    @OnClick(R2.id.icon_sign_in_wechat)
+    void onClickWeChatLogin() {
+        Toast.makeText(getContext(), "微信登录", Toast.LENGTH_SHORT).show();
+        LatteWeChat.getInstance().onSignInCallback(new IWeChatSignInCallback() {
+            @Override
+            public void onSignInSuccess(String userInfo) {
+
+            }
+        }).signIn();
     }
 
     @OnClick(R2.id.btn_sign_in)

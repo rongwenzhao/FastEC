@@ -10,5 +10,8 @@ public enum ConfigKeys {
     APPLICATION_CONTEXT,
     CONFIG_READY,//配置是否完成
     ICON,
-    INTERCEPTOR
+    INTERCEPTOR,
+    WE_CHAT_APP_ID,
+    WE_CHAT_APP_SECRET,
+    ACTIVITY, //微信拉取它的回调的时候需要一个activity上下文，非全局的applicationContext上下文
 }

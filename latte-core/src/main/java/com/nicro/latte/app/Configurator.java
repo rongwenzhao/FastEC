@@ -1,5 +1,7 @@
 package com.nicro.latte.app;
 
+import android.app.Activity;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -9,6 +11,7 @@ import java.util.HashMap;
 import okhttp3.Interceptor;
 
 /**
+ * 全局配置工具类
  * Created by rongwenzhao on 2017/11/18.
  */
 
@@ -78,6 +81,39 @@ public class Configurator {
     public final Configurator withInterceptor(ArrayList<Interceptor> interceptors) {
         INTERCEPTORS.addAll(interceptors);
         LATTE_CONFIGS.put(ConfigKeys.INTERCEPTOR.name(), INTERCEPTORS);
+        return this;
+    }
+
+    /**
+     * 配置微信appID
+     *
+     * @param appId
+     * @return
+     */
+    public final Configurator withWeChatAppId(String appId) {
+        LATTE_CONFIGS.put(ConfigKeys.WE_CHAT_APP_ID.name(), appId);
+        return this;
+    }
+
+    /**
+     * 配置微信secretId
+     *
+     * @param secretId
+     * @return
+     */
+    public final Configurator withWeChatSecretId(String secretId) {
+        LATTE_CONFIGS.put(ConfigKeys.WE_CHAT_APP_SECRET.name(), secretId);
+        return this;
+    }
+
+    /**
+     * 拉取微信回调activity的局部activity对象
+     *
+     * @param activity
+     * @return
+     */
+    public final Configurator withActivity(Activity activity) {
+        LATTE_CONFIGS.put(ConfigKeys.ACTIVITY.name(), activity);
         return this;
     }
 
