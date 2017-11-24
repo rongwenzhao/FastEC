@@ -49,6 +49,11 @@ public class LatteProcessor extends AbstractProcessor {
         return types;
     }
 
+    /**
+     * 将该processor所关注的annotation添加到set中
+     *
+     * @return
+     */
     private Set<Class<? extends Annotation>> getSupportedAnnotations() {
         final Set<Class<? extends Annotation>> annotations = new LinkedHashSet<>();
         annotations.add(EntryGenerator.class);
@@ -65,20 +70,33 @@ public class LatteProcessor extends AbstractProcessor {
         return true;
     }
 
+    /**
+     * 调试方式见：http://blog.csdn.net/zhangteng22/article/details/54946270
+     * 整个流程调试一次之后，细节你就会清楚了。项目中使用时，直接扣出相应代码即可。
+     *
+     * @param env
+     * @param annotation
+     * @param visitor
+     */
     private void scan(RoundEnvironment env,
                       Class<? extends Annotation> annotation,
                       AnnotationValueVisitor visitor) {
 
         for (Element typeElement : env.getElementsAnnotatedWith(annotation)) {
+            //typeElement是使用了对应注解的类
+            //annotationMirrors存放该类上的注解集合，每一个AnnotationMirror对应了一个注解
             final List<? extends AnnotationMirror> annotationMirrors =
                     typeElement.getAnnotationMirrors();
 
             for (AnnotationMirror annotationMirror : annotationMirrors) {
+                //elementValues存放着对应注解中的元素信息。此处，指自定义的package信息和templateClass信息
                 final Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues =
                         annotationMirror.getElementValues();
 
                 for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry
                         : elementValues.entrySet()) {
+                    //annotation中每个元素调用accept方法时，都会调用对应类型的在visitor中的方法
+                    //比如，String类型的，调用visitString方法，类类型的，调用visitType方法
                     entry.getValue().accept(visitor, null);
                 }
             }
@@ -86,18 +104,33 @@ public class LatteProcessor extends AbstractProcessor {
 
     }
 
+    /**
+     * 生成Entry对应java文件的方法
+     *
+     * @param env
+     */
     private void generateEntryCode(RoundEnvironment env) {
         final EntryVisitor entryVisitor = new EntryVisitor();
         entryVisitor.setmFiler(processingEnv.getFiler());
         scan(env, EntryGenerator.class, entryVisitor);
     }
 
+    /**
+     * 生成PayEntry对应java文件的方法
+     *
+     * @param env
+     */
     private void generatePayEntryCode(RoundEnvironment env) {
         final PayEntryVisitor payEntryVisitor = new PayEntryVisitor();
         payEntryVisitor.setmFiler(processingEnv.getFiler());
         scan(env, PayEntryGenerator.class, payEntryVisitor);
     }
 
+    /**
+     * 生成AppRegister对应java文件的方法
+     *
+     * @param env
+     */
     private void generateAppRegisterEntryCode(RoundEnvironment env) {
         final AppRegisterVisitor appRegisterVisitor = new AppRegisterVisitor();
         appRegisterVisitor.setmFiler(processingEnv.getFiler());
