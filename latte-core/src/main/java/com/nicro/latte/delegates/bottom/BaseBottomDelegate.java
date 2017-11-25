@@ -127,7 +127,7 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
             final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(i);
             final IconTextView itemIcon = (IconTextView) item.getChildAt(0);
             itemIcon.setTextColor(Color.GRAY);
-            final AppCompatTextView itemTitle = (AppCompatTextView) mBottomBar.getChildAt(1);
+            final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
             itemTitle.setTextColor(Color.GRAY);
         }
     }
@@ -140,7 +140,7 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         final RelativeLayout item = (RelativeLayout) v;
         final IconTextView itemIcon = (IconTextView) item.getChildAt(0);
         itemIcon.setTextColor(mClickedColor);
-        final AppCompatTextView itemTitle = (AppCompatTextView) mBottomBar.getChildAt(1);
+        final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
         itemTitle.setTextColor(mClickedColor);
 
         //fragmentation提供的显示，隐藏fragment的方法。前面是需要显示的，后面是需要隐藏的。

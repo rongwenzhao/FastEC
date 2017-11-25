@@ -8,6 +8,8 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
+import com.nicro.latte.app.ConfigKeys;
+import com.nicro.latte.app.Latte;
 import com.nicro.latte.delegates.LatteDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.R2;
@@ -64,7 +66,7 @@ public class SignInDelegate extends LatteDelegate {
     void onClickSignIn() {
         if (checkForm()) {
             RestClient.builder()
-                    .url("http://192.168.0.106/RestServer/data/user_profile.json")
+                    .url(Latte.getConfiguration(ConfigKeys.API_HOST) + "user_profile.php")
                     .params("password", mPassword.getText().toString())
                     .params("email", mEmail.getText().toString())
                     .success(new ISuccess() {

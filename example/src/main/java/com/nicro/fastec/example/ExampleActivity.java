@@ -9,6 +9,7 @@ import com.nicro.latte.activities.ProxyActivity;
 import com.nicro.latte.app.Latte;
 import com.nicro.latte.delegates.LatteDelegate;
 import com.nicro.latte.ec.launcher.LauncherDelegate;
+import com.nicro.latte.ec.main.EcBottomDelegate;
 import com.nicro.latte.ec.sign.ISignListener;
 import com.nicro.latte.ec.sign.SignInDelegate;
 import com.nicro.latte.ui.launcher.ILauncherListener;
@@ -56,7 +57,7 @@ public class ExampleActivity extends ProxyActivity implements
         switch (tag) {
             case SIGNED:
                 Toast.makeText(this, "启动结束，用户登录了", Toast.LENGTH_LONG).show();
-                startWithPop(new ExampleDelegate());
+                startWithPop(new EcBottomDelegate());
                 break;
             case NOT_SIGNED:
                 Toast.makeText(this, "启动结束，用户没登录", Toast.LENGTH_LONG).show();

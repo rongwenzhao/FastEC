@@ -40,6 +40,7 @@ public abstract class BottomItemDelegate extends LatteDelegate implements View.O
             if (System.currentTimeMillis() - mExitTime > EXIT_TIME) {
                 Toast.makeText(getContext(), "双击退出" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
+                return true;
             } else {//否则退出应用。下面退出的操作，根据项目具体重写。
                 _mActivity.finish();
                 if (mExitTime != 0) {
