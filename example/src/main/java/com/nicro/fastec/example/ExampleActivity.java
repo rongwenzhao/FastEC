@@ -15,6 +15,8 @@ import com.nicro.latte.ec.sign.SignInDelegate;
 import com.nicro.latte.ui.launcher.ILauncherListener;
 import com.nicro.latte.ui.launcher.OnLauncherFinishTag;
 
+import qiu.niorgai.StatusBarCompat;
+
 public class ExampleActivity extends ProxyActivity implements
         ISignListener,
         ILauncherListener {
@@ -29,6 +31,8 @@ public class ExampleActivity extends ProxyActivity implements
 
         //初始化activity变量
         Latte.getConfigurator().withActivity(this);
+
+        StatusBarCompat.translucentStatusBar(this, true);
     }
 
     @Override
