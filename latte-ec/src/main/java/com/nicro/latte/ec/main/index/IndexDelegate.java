@@ -2,6 +2,7 @@ package com.nicro.latte.ec.main.index;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.nicro.latte.delegates.bottom.BottomItemDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.R2;
+import com.nicro.latte.ui.recycler.BaseDecoration;
 import com.nicro.latte.ui.refresh.RefreshHandler;
 
 import butterknife.BindView;
@@ -57,6 +59,9 @@ public class IndexDelegate extends BottomItemDelegate {
     private void initRecyclerView() {
         final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
         mRecylerView.setLayoutManager(manager);
+        //ContextCompat.getColor(getContext(), R.color.app_background) 获取颜色的值即 #1111
+        mRecylerView.addItemDecoration
+                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
     }
 
     //Fregmention提供的懒加载方法。Lazy initial，Called when fragment is first called.
