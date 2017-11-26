@@ -6,7 +6,6 @@ import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.nicro.latte.app.Latte;
 import com.nicro.latte.ec.database.DatabaseManager;
 import com.nicro.latte.ec.icon.FontEcModule;
-import com.nicro.latte.net.interceptors.DebugInterceptor;
 
 /**
  * Created by rongwenzhao on 2017/11/18.
@@ -22,7 +21,7 @@ public class ExampleApp extends Application {
                 .withApiHost("http://114.67.235.114/RestServer/api/")
                 .withWeChatAppId("")
                 .withWeChatSecretId("")
-                .withInterceptor(new DebugInterceptor("index", R.raw.test))
+                //.withInterceptor(new DebugInterceptor("index", R.raw.test))
                 .configure();
         //调试打开是白屏，网页被屏蔽
         //initStetho();

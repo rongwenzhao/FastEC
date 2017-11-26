@@ -5,6 +5,7 @@ import android.os.Handler;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
+import com.nicro.latte.util.logger.LatteLogger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +36,7 @@ public class Configurator {
     private Configurator() {
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY.name(), false);
         LATTE_CONFIGS.put(ConfigKeys.HANDLER.name(), HANDLER);
+        LatteLogger.init();
     }
 
     public HashMap<String, Object> getLatteConfigs() {

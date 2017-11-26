@@ -12,7 +12,13 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.nicro.latte.delegates.bottom.BottomItemDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.R2;
+import com.nicro.latte.net.RestClient;
+import com.nicro.latte.net.callback.ISuccess;
+import com.nicro.latte.ui.recycler.MultipleItemEntity;
 import com.nicro.latte.ui.refresh.RefreshHandler;
+import com.nicro.latte.util.logger.LatteLogger;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -39,9 +45,20 @@ public class IndexDelegate extends BottomItemDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         mRefreshHandler = new RefreshHandler(mRefreshLayout);
+        RestClient.builder().url("index.php")
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        final IndexDataConverter convert = new IndexDataConverter();
+                        convert.setJsonData(response);
+                        final ArrayList<MultipleItemEntity> list = convert.convert();
+                        LatteLogger.d("list=" + list);
+                    }
+                }).build().get();
     }
 
     private void initRefreshLayout() {
+        //初始化SwipeRefreshLayout的显示颜色
         mRefreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_orange_light,
@@ -57,6 +74,7 @@ public class IndexDelegate extends BottomItemDelegate {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
+        //mRefreshHandler.firstPage("index.php");
     }
 
     @Override
