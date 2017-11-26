@@ -32,7 +32,7 @@ public final class IndexDataConverter extends DataConverter {
             int type = 0;
             if (imageUrl == null && text != null) {
                 type = ItemType.TEXT;
-            } else if (text != null && imageUrl == null) {
+            } else if (text == null && imageUrl != null) {
                 type = ItemType.IMAGE;
             } else if (text != null) {//智能判断，此时imageUrl != null
                 type = ItemType.TEXT_IMAGE;

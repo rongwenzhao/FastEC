@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bigkoo.convenientbanner.ConvenientBanner xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/banner_recycler_item"
+    android:layout_width="match_parent"
+    android:layout_height="260dp">
+    <!--注意，ConvenientBanner的高度一定不能是match_parent,
+    是的话，每个元素的高度会非常大，图片就走形了。-->
+
+</com.bigkoo.convenientbanner.ConvenientBanner>

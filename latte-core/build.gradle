@@ -27,11 +27,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:26.0.0-alpha1'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v4:26.+'
-    compile 'com.android.support:design:26.+'
+    compile 'com.android.support:support-v4:26.0.0-alpha1'
     //字体图标
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
     // (v4.5)
@@ -59,9 +60,12 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'org.greenrobot:greendao-generator:3.2.2'
     //接入微信登录，支付等的依赖
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'
     //BaseRecyclerViewAdapterHelper的使用 https://github.com/CymChad/BaseRecyclerViewAdapterHelper
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    //依赖的module
     compile project(':latte-compiler')
-
+    //图片加载库
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
 }
