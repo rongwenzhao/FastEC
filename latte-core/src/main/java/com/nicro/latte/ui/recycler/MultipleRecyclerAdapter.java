@@ -29,7 +29,7 @@ public class MultipleRecyclerAdapter extends
     //是否初始化一次Banner，防止重复item加载(RecyclerView上拉，下拉时，都会进行item的重新加载，而banner是不需要重新加载的)。
     private boolean mIsInitBanner = false;
 
-    private MultipleRecyclerAdapter(List<MultipleItemEntity> data) {
+    protected MultipleRecyclerAdapter(List<MultipleItemEntity> data) {
         super(data);
         init();
     }
