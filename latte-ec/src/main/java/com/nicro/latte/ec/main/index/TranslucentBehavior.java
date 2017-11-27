@@ -72,7 +72,7 @@ public class TranslucentBehavior extends CoordinatorLayout.Behavior<Toolbar> {
      *
      * @param coordinatorLayout
      * @param child
-     * @param target
+     * @param target            此处是android.support.v4.widget.SwipeRefreshLayout
      * @param dx
      * @param dy
      * @param consumed

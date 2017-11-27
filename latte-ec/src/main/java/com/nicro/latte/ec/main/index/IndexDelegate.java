@@ -14,6 +14,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.nicro.latte.delegates.bottom.BottomItemDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.R2;
+import com.nicro.latte.ec.main.EcBottomDelegate;
 import com.nicro.latte.ui.recycler.BaseDecoration;
 import com.nicro.latte.ui.refresh.RefreshHandler;
 
@@ -59,9 +60,16 @@ public class IndexDelegate extends BottomItemDelegate {
     private void initRecyclerView() {
         final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
         mRecylerView.setLayoutManager(manager);
-        //ContextCompat.getColor(getContext(), R.color.app_background) 获取颜色的值即 #1111
+        //添加分隔符。ContextCompat.getColor(getContext(), R.color.app_background) 获取颜色的值即 #1111
         mRecylerView.addItemDecoration
                 (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
+
+        //添加点击事件
+        //注意，这里传入IndexItemClickListener的delegate实例，是主页中最底部的delegate，
+        // 也就是EcBottomDelegate的实例,
+        //如果传入当前的delegate，那么跳转到新界面，还是在最底部的delegate里面，底部的四个tab还会显示。
+        final EcBottomDelegate ecBottomDelegate = getParentDelegate();
+        mRecylerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
 
     //Fregmention提供的懒加载方法。Lazy initial，Called when fragment is first called.
