@@ -5,8 +5,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.nicro.latte.delegates.LatteDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.main.sort.SortDelegate;
+import com.nicro.latte.ec.main.sort.content.ContentDelegate;
 import com.nicro.latte.ui.recycler.ItemType;
 import com.nicro.latte.ui.recycler.MultipleFields;
 import com.nicro.latte.ui.recycler.MultipleItemEntity;
@@ -54,7 +56,9 @@ public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
                             notifyItemChanged(currentPosition);
                             mPrePosition = currentPosition;
 
+                            //根据ContentID产生对应的ContentDelegate，之后再显示出来。
                             final int contentId = getData().get(currentPosition).getField(MultipleFields.ID);
+                            showContent(contentId);
                         }
                     }
                 });
@@ -77,5 +81,29 @@ public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
                 break;
         }
 
+    }
+
+    /**
+     * 根据contentId产生ContentDelegate，并显示处理
+     *
+     * @param contentId
+     */
+    private void showContent(int contentId) {
+        final ContentDelegate delegate = ContentDelegate.newInstance(contentId);
+        switchContent(delegate);
+    }
+
+    /**
+     * 先检查SortDelegate中有没有ContentDelegate类型的子Fragment，肯定会有，因为初始化为contentID为 1 。
+     * 所以，此处，就是在点击了非当前分类后的内容切换。
+     * 找到之后直接replaceFreagment，并且不加入返回栈。
+     *
+     * @param delegate
+     */
+    private void switchContent(ContentDelegate delegate) {
+        final LatteDelegate contentDelgate = DELEGATE.findChildFragment(ContentDelegate.class);
+        if (contentDelgate != null) {
+            contentDelgate.replaceFragment(delegate, false);
+        }
     }
 }
