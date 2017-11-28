@@ -3,6 +3,7 @@ package com.nicro.fastec.example;
 import android.app.Application;
 
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.nicro.fastec.example.event.TestEvent;
 import com.nicro.latte.app.Latte;
 import com.nicro.latte.ec.database.DatabaseManager;
 import com.nicro.latte.ec.icon.FontEcModule;
@@ -22,6 +23,8 @@ public class ExampleApp extends Application {
                 .withWeChatAppId("")
                 .withWeChatSecretId("")
                 //.withInterceptor(new DebugInterceptor("index", R.raw.test))
+                .withJavaScriptInterface("Latte")//添加js调用时的名字
+                .withWebEvent("test", new TestEvent())//添加测试事件
                 .configure();
         //调试打开是白屏，网页被屏蔽
         //initStetho();
