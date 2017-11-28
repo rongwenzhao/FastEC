@@ -74,11 +74,27 @@ public class ContentDelegate extends LatteDelegate {
                 .get();
     }
 
+    /**
+     * onCreateView里面执行的
+     *
+     * @param savedInstanceState
+     * @param rootView
+     */
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         //瀑布流
         final StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
+    }
+
+    /**
+     * 第一次进入的时候才执行的
+     *
+     * @param savedInstanceState
+     */
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         initData();
     }
 }
