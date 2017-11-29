@@ -8,4 +8,6 @@ enum ShopCartItemFields {
     DESC,
     COUNT,
     PRICE,
+    IS_SELECTED, //该元素是否是被选中状态
+    POSIZION //该数据在数据集中的位置，方便删除操作
 }

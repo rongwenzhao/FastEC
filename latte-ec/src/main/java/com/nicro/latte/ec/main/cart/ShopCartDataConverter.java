@@ -32,11 +32,13 @@ public class ShopCartDataConverter extends DataConverter {
             final MultipleItemEntity entity = MultipleItemEntity.builder()
                     .setField(MultipleFields.ITEM_TYPE, ShopCartItemType.SHOP_CART_ITEM)
                     .setField(MultipleFields.ID, id)
+                    .setField(MultipleFields.IMAGE_URL, thumb)
                     .setField(ShopCartItemFields.PRICE, price)
                     .setField(ShopCartItemFields.TITLE, title)
                     .setField(ShopCartItemFields.DESC, desc)
                     .setField(ShopCartItemFields.COUNT, count)
-                    .setField(MultipleFields.IMAGE_URL, thumb)
+                    .setField(ShopCartItemFields.IS_SELECTED, false)//默认没被点击
+                    .setField(ShopCartItemFields.POSIZION, i)
                     .build();
             dataList.add(entity);
 

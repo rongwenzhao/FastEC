@@ -1,7 +1,10 @@
 package com.nicro.latte.ec.main.cart;
 
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -19,13 +22,21 @@ import java.util.List;
  */
 
 public class ShopCartRecyclerAdapter extends MultipleRecyclerAdapter {
+
+    //全选是否被点击
+    private boolean mIsSelectedAll = false;
+
     protected ShopCartRecyclerAdapter(List<MultipleItemEntity> data) {
         super(data);
         addItemType(ShopCartItemType.SHOP_CART_ITEM, R.layout.item_shop_cart);
     }
 
+    public void setSelectedAll(boolean selectedAll) {
+        mIsSelectedAll = selectedAll;
+    }
+
     @Override
-    protected void convert(MultipleViewHolder holder, MultipleItemEntity entity) {
+    protected void convert(MultipleViewHolder holder, final MultipleItemEntity entity) {
         super.convert(holder, entity);
         switch (holder.getItemViewType()) {
             case ShopCartItemType.SHOP_CART_ITEM:
@@ -45,8 +56,7 @@ public class ShopCartRecyclerAdapter extends MultipleRecyclerAdapter {
                 final AppCompatTextView tv_count = holder.getView(R.id.tv_item_shop_cart_count);
                 final IconTextView icon_item_plus = holder.getView(R.id.icon_item_plus);
                 final IconTextView icon_item_minus = holder.getView(R.id.icon_item_minus);
-
-
+                final IconTextView icon_isSelected = holder.getView(R.id.icon_item_shop_cart);
                 //赋值
                 tv_title.setText(title);
                 tv_desc.setText(desc);
@@ -58,6 +68,31 @@ public class ShopCartRecyclerAdapter extends MultipleRecyclerAdapter {
                         .dontAnimate()
                         .centerCrop()
                         .into(thumbImageView);
+
+                entity.setField(ShopCartItemFields.IS_SELECTED, mIsSelectedAll);
+
+                final boolean isSelected = entity.getField(ShopCartItemFields.IS_SELECTED);
+                if (isSelected) {
+                    icon_isSelected.setTextColor(ContextCompat.getColor(mContext, R.color.app_main));
+                } else {
+                    icon_isSelected.setTextColor(Color.GRAY);
+                }
+
+                //左侧勾勾的点击事件
+                icon_isSelected.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final boolean currentSelecteInfo = entity.getField(ShopCartItemFields.IS_SELECTED);
+                        if (currentSelecteInfo) {
+                            icon_isSelected.setTextColor(Color.GRAY);
+                            entity.setField(ShopCartItemFields.IS_SELECTED, false);
+                        } else {
+                            icon_isSelected.setTextColor(ContextCompat.getColor(mContext, R.color.app_main));
+                            entity.setField(ShopCartItemFields.IS_SELECTED, true);
+                        }
+
+                    }
+                });
 
                 break;
             default:
