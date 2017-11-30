@@ -16,6 +16,8 @@ import com.nicro.latte.app.Latte;
 import com.nicro.latte.delegates.bottom.BottomItemDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.R2;
+import com.nicro.latte.ec.pay.FastPay;
+import com.nicro.latte.ec.pay.IAlPayResultListener;
 import com.nicro.latte.net.RestClient;
 import com.nicro.latte.net.callback.ISuccess;
 import com.nicro.latte.ui.recycler.MultipleItemEntity;
@@ -33,7 +35,7 @@ import butterknife.OnClick;
  * Created by rongwenzhao on 2017/11/29.
  */
 
-public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener {
+public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener, IAlPayResultListener {
 
     ShopCartRecyclerAdapter mAdapter = null;
     @BindView(R2.id.rv_shop_cart)
@@ -54,6 +56,10 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
      */
     @OnClick(R2.id.tv_shop_cart_pay)
     void onClickPay() {
+        FastPay fastPay = FastPay.create(this)
+                .setPayResultListener(this)
+                .setOrderId(00);
+        fastPay.beginPayDialog();
 
     }
 
@@ -221,5 +227,30 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     @Override
     public void onItemClick(double itemTotalPrice) {
         tvTotalPrice.setText(String.valueOf("￥" + itemTotalPrice));
+    }
+
+    @Override
+    public void onPaySuccess() {
+
+    }
+
+    @Override
+    public void onPaying() {
+
+    }
+
+    @Override
+    public void onPayFail() {
+
+    }
+
+    @Override
+    public void onPayCancel() {
+
+    }
+
+    @Override
+    public void onPayConnectError() {
+
     }
 }
