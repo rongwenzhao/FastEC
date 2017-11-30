@@ -45,4 +45,6 @@ dependencies {
     //provided 说明auto-value这个库只在编译期间被使用，打包这个库的代码是不会打进去的
     provided 'com.google.auto.value:auto-value:1.5'
     annotationProcessor "com.google.auto.value:auto-value:1.5"
+    //圆形头像
+    compile 'de.hdodenhof:circleimageview:2.2.0'
 }

@@ -77,6 +77,9 @@ public abstract class ProxyActivity extends AppCompatActivity implements ISuppor
         DELEGATE.onBackPressedSupport();
     }
 
+    /**
+     * 此方法一定要重写，不然双击退出会出问题。
+     */
     @Override
     public void onBackPressed() {
         DELEGATE.onBackPressed();
