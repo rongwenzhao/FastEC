@@ -1,4 +1,4 @@
-package com.nicro.fastec.example.generateTest;
+package com.nicro.fastec.example.generators;
 
 import com.example.annotations.PayEntryGenerator;
 import com.nicro.latte.wechat.template.WXPayEntryTemplate;
