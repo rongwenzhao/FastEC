@@ -2,7 +2,7 @@ package com.nicro.latte.ui.banner;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
-import com.nicro.latte.R;
+import com.nicro.latte.ui.R;
 
 import java.util.ArrayList;
 

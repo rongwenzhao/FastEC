@@ -44,6 +44,6 @@ public class DiscoverDelegate extends BottomItemDelegate {
         //此处传入的是this.getParentDelegate() 的delegate，也就最底层的ECBottomDelegate。
         // 用它来启动wevView界面，会是完整界面，底部不会有底边拦。
         delegate.setTopDelegate(this.getParentDelegate());
-        loadRootFragment(R.id.web_discover_container, delegate);
+        getSupportDelegate().loadRootFragment(R.id.web_discover_container, delegate);
     }
 }

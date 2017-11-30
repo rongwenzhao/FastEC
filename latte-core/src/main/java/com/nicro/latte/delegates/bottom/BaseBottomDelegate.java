@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import me.yokeyword.fragmentation.SupportFragment;
+import me.yokeyword.fragmentation.ISupportFragment;
 
 /**
  * 底层若干按钮的容器 delegate需要实现的类
@@ -113,9 +113,9 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         }
 
         //2、初始化上面显示的Fragment
-        final SupportFragment[] delegateArray = ITEM_DELEGATES.toArray(new SupportFragment[size]);
+        final ISupportFragment[] delegateArray = ITEM_DELEGATES.toArray(new ISupportFragment[size]);
         //fragmentation框架加载多个根fragment的方法
-        loadMultipleRootFragment(R.id.bottom_bar_delegate_container, mIndexDelegate, delegateArray);
+        getSupportDelegate().loadMultipleRootFragment(R.id.bottom_bar_delegate_container, mIndexDelegate, delegateArray);
     }
 
     /**
@@ -144,7 +144,7 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         itemTitle.setTextColor(mClickedColor);
 
         //fragmentation提供的显示，隐藏fragment的方法。前面是需要显示的，后面是需要隐藏的。
-        showHideFragment(ITEM_DELEGATES.get(tag), ITEM_DELEGATES.get(mCurrentDelegate));
+        getSupportDelegate().showHideFragment(ITEM_DELEGATES.get(tag), ITEM_DELEGATES.get(mCurrentDelegate));
         //当前显示的fragment的index变量mCurrentDelegate更新
         mCurrentDelegate = tag;
     }

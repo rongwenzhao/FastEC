@@ -17,6 +17,8 @@ import com.nicro.latte.ui.recycler.MultipleViewHolder;
 
 import java.util.List;
 
+import me.yokeyword.fragmentation.SupportHelper;
+
 /**
  * Created by rongwenzhao on 2017/11/27.
  */
@@ -101,9 +103,12 @@ public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
      * @param delegate
      */
     private void switchContent(ContentDelegate delegate) {
-        final LatteDelegate contentDelgate = DELEGATE.findChildFragment(ContentDelegate.class);
-        if (contentDelgate != null) {
-            contentDelgate.replaceFragment(delegate, false);
+        final LatteDelegate contentDelegate =
+                SupportHelper.findFragment(DELEGATE.getChildFragmentManager(), ContentDelegate.class);
+        //DELEGATE.findChildFragment(ContentDelegate.class);
+        if (contentDelegate != null) {
+            contentDelegate.getSupportDelegate().replaceFragment(delegate, false);
+            //contentDelgate.replaceFragment(delegate, false);
         }
     }
 }

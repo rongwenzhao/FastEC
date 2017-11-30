@@ -47,7 +47,7 @@ public class Router {
         //没有电话协议，剩下的就是原生跳转了。
         final LatteDelegate topDelegate = delegate.getTopDelegate();
         final WebDelegateImpl webDelegate = WebDelegateImpl.create(url);
-        topDelegate.start(webDelegate);
+        topDelegate.getSupportDelegate().start(webDelegate);
         return true;
     }
 
