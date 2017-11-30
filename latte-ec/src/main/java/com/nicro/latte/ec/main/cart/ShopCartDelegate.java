@@ -4,11 +4,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ViewStubCompat;
 import android.view.View;
+import android.widget.Toast;
 
 import com.joanzapata.iconify.widget.IconTextView;
+import com.nicro.latte.app.Latte;
 import com.nicro.latte.delegates.bottom.BottomItemDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.R2;
@@ -28,7 +32,7 @@ import butterknife.OnClick;
  * Created by rongwenzhao on 2017/11/29.
  */
 
-public class ShopCartDelegate extends BottomItemDelegate {
+public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener {
 
     ShopCartRecyclerAdapter mAdapter = null;
     @BindView(R2.id.rv_shop_cart)
@@ -36,6 +40,37 @@ public class ShopCartDelegate extends BottomItemDelegate {
 
     @BindView(R2.id.icon_shop_cart_select_all)
     IconTextView icon_select_all = null;
+
+    //购物车为空时，填充view。用stubView开始是不需要渲染的，性能棒棒的
+    @BindView(R2.id.stub_view_no_item)
+    ViewStubCompat mStubView = null;
+
+    @BindView(R2.id.tv_total_price)
+    AppCompatTextView tvTotalPrice = null;
+
+    private boolean isInflated = false;
+
+    /**
+     * 购物车为空时显示的视图
+     */
+    private void checkItemCount() {
+        final int count = mAdapter.getItemCount();
+        if (count == 0 && !isInflated) {
+            final View stubView = mStubView.inflate();
+            isInflated = true;
+            final AppCompatTextView tvToBuy = stubView.findViewById(R.id.tv_stub_buy);
+            tvToBuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "你该购物了!", Toast.LENGTH_SHORT).show();
+                }
+            });
+            mRecyclerView.setVisibility(View.GONE);
+        } else if (count > 0) {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mAdapter.refreshTotalPrice(true);
+        }
+    }
 
     @OnClick(R2.id.icon_shop_cart_select_all)
     void onSelectAllClick() {
@@ -56,6 +91,16 @@ public class ShopCartDelegate extends BottomItemDelegate {
             //mAdapter.notifyDataSetChanged();
             mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
         }
+
+        /**
+         * 待adapter数据刷新完成才更新这边的主界面
+         */
+        Latte.getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.refreshTotalPrice(true);
+            }
+        }, 100);
     }
 
     /**
@@ -93,12 +138,15 @@ public class ShopCartDelegate extends BottomItemDelegate {
                 }
             }
         }
+
+        checkItemCount();
     }
 
     @OnClick(R2.id.tv_top_shop_cart_clear)
     void onClickClear() {
         mAdapter.getData().clear();
         mAdapter.notifyDataSetChanged();
+        checkItemCount();
     }
 
     @Override
@@ -126,9 +174,21 @@ public class ShopCartDelegate extends BottomItemDelegate {
                         LatteLogger.d("shop_cart data " + response);
                         final ShopCartDataConverter dataConverter = new ShopCartDataConverter();
                         mAdapter = new ShopCartRecyclerAdapter(dataConverter.setJsonData(response).convert());
+                        mAdapter.setItemListener(ShopCartDelegate.this);
                         mRecyclerView.setAdapter(mAdapter);
+                        checkItemCount();
                     }
                 }).build()
                 .get();
+    }
+
+    /**
+     * adapter的商品被选择后，回调的方法
+     *
+     * @param itemTotalPrice
+     */
+    @Override
+    public void onItemClick(double itemTotalPrice) {
+        tvTotalPrice.setText(String.valueOf("￥" + itemTotalPrice));
     }
 }
