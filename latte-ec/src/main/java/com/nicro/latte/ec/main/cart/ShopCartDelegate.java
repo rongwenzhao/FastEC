@@ -23,6 +23,7 @@ import com.nicro.latte.util.logger.LatteLogger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,6 +48,36 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
     @BindView(R2.id.tv_total_price)
     AppCompatTextView tvTotalPrice = null;
+
+    /**
+     * 点击结算按钮的处理逻辑
+     */
+    @OnClick(R2.id.tv_shop_cart_pay)
+    void onClickPay() {
+
+    }
+
+    //创建订单，注意，和支付是没有关系的
+    private void createOrder() {
+        final String orderUrl = "";//自己的服务器地址
+        final WeakHashMap<String, Object> orderParams = new WeakHashMap<>();
+        //自己服务器的一些约定参数
+        orderParams.put("userid", "");
+        orderParams.put("amount", 0.01);
+        orderParams.put("comment", "测试支付");
+        orderParams.put("ordertype", "orderType");
+        RestClient.builder()
+                .url(orderUrl)
+                .params(orderParams)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        //自己服务器返回信息。支付信息都在自己服务器请求第三方服务器。
+                    }
+                })
+                .build()
+                .post();
+    }
 
     private boolean isInflated = false;
 
