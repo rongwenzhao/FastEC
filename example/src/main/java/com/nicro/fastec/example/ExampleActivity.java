@@ -8,7 +8,6 @@ import android.widget.Toast;
 import com.nicro.latte.activities.ProxyActivity;
 import com.nicro.latte.app.Latte;
 import com.nicro.latte.delegates.LatteDelegate;
-import com.nicro.latte.ec.launcher.LauncherDelegate;
 import com.nicro.latte.ec.main.EcBottomDelegate;
 import com.nicro.latte.ec.sign.ISignListener;
 import com.nicro.latte.ec.sign.SignInDelegate;
@@ -37,7 +36,7 @@ public class ExampleActivity extends ProxyActivity implements
 
     @Override
     public LatteDelegate setRootDelegate() {
-        return new LauncherDelegate();
+        return new EcBottomDelegate();
     }
 
     @Override
