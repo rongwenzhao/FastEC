@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.nicro.latte.ui.camera.CameraImageBean;
 import com.nicro.latte.ui.camera.LatteCamera;
 import com.nicro.latte.ui.camera.RequestCodes;
+import com.nicro.latte.util.callback.CallbackManager;
+import com.nicro.latte.util.callback.CallbackType;
+import com.nicro.latte.util.callback.IGlobalCallback;
 import com.nicro.latte.util.logger.LatteLogger;
 import com.yalantis.ucrop.UCrop;
 
@@ -64,7 +67,6 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
     void onCameraRationale(PermissionRequest request) {
         showRationaleDialog(request);
     }*/
-
     private void showRationaleDialog(final PermissionRequest request) {
         new AlertDialog.Builder(getContext())
                 .setPositiveButton("同意使用", new DialogInterface.OnClickListener() {
@@ -118,6 +120,11 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
                     final Uri cropUri = UCrop.getOutput(data);
                     LatteLogger.d("CROP_URI" + cropUri);
                     //拿到剪裁后的数据进行处理
+                    final IGlobalCallback<Uri> callback = CallbackManager
+                            .getInstance().getCallback(CallbackType.ON_CROP);
+                    if (callback != null) {
+                        callback.executeCallback(cropUri);
+                    }
 
                     break;
                 case RequestCodes.CROP_ERROR:

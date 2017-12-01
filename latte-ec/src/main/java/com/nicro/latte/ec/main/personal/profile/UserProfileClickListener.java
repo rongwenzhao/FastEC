@@ -1,6 +1,7 @@
 package com.nicro.latte.ec.main.personal.profile;
 
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +12,10 @@ import com.nicro.latte.delegates.LatteDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.main.personal.list.ListBean;
 import com.nicro.latte.ui.date.DateDialogUtil;
+import com.nicro.latte.util.callback.CallbackManager;
+import com.nicro.latte.util.callback.CallbackType;
+import com.nicro.latte.util.callback.IGlobalCallback;
+import com.nicro.latte.util.logger.LatteLogger;
 
 /**
  * Created by rongwenzhao on 2017/12/1.
@@ -34,6 +39,14 @@ public class UserProfileClickListener extends SimpleClickListener {
         switch (id) {
             case 1:
                 //开始照相机或选择图片
+                CallbackManager.getInstance()
+                        .addCallback(CallbackType.ON_CROP, new IGlobalCallback<Uri>() {
+                                    @Override
+                                    public void executeCallback(Uri args) {
+                                        LatteLogger.d("CROP 返回结果，回到profile界面: " + args);
+                                    }
+                                }
+                        );
                 DELEGATE.startCameraWithCheck();
                 break;
             case 2:
