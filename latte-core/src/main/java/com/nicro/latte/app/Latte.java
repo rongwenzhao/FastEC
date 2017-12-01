@@ -1,5 +1,6 @@
 package com.nicro.latte.app;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
@@ -28,6 +29,10 @@ public class Latte {
 
     public static Context getApplicationContext() {
         return (Context) getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
+    }
+
+    public static Application getApplication() {
+        return (Application) getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
     }
 
     public static Handler getHandler() {

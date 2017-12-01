@@ -80,4 +80,19 @@ dependencies {
     /*//provided 说明auto-value这个库只在编译期间被使用，打包这个库的代码是不会打进去的
     provided 'com.google.auto.value:auto-value:1.5'
     annotationProcessor "com.google.auto.value:auto-value:1.5"*/
+
+    //图片剪裁库 https://github.com/Yalantis/uCrop
+    compile 'com.github.yalantis:ucrop:2.2.1-native'
+
+    //动态权限
+    //动态权限处理
+    compile("com.github.hotchemi:permissionsdispatcher:2.4.0") {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
+
+    //util工具包，里面提供很多有用的方法
+    // https://github.com/Blankj/AndroidUtilCode/tree/master/utilcode
+    compile 'com.blankj:utilcode:1.9.10'
 }
