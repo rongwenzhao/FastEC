@@ -6,5 +6,7 @@ package com.nicro.latte.util.callback;
  */
 
 public enum CallbackType {
-    ON_CROP //剪裁后的回调
+    ON_CROP, //剪裁后的回调
+    TAG_OPEN_PUSH,//打开推送
+    TAG_STOP_PUSH//关闭推送
 }

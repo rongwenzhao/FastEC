@@ -4,13 +4,17 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.nicro.latte.delegates.LatteDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.main.personal.list.ListBean;
+import com.nicro.latte.net.RestClient;
+import com.nicro.latte.net.callback.ISuccess;
 import com.nicro.latte.ui.date.DateDialogUtil;
 import com.nicro.latte.util.callback.CallbackManager;
 import com.nicro.latte.util.callback.CallbackType;
@@ -44,6 +48,20 @@ public class UserProfileClickListener extends SimpleClickListener {
                                     @Override
                                     public void executeCallback(Uri args) {
                                         LatteLogger.d("CROP 返回结果，回到profile界面: " + args);
+                                        ImageView avatar = view.findViewById(R.id.img_arrow_avatar);
+                                        Glide.with(DELEGATE)
+                                                .load(args)
+                                                .into(avatar);
+                                        RestClient.builder()
+                                                .url("")
+                                                .file(args.getPath())
+                                                .success(new ISuccess() {
+                                                    @Override
+                                                    public void onSuccess(String response) {
+
+                                                    }
+                                                }).build()
+                                                .upload();
                                     }
                                 }
                         );

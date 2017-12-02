@@ -16,6 +16,8 @@ import com.nicro.latte.ec.main.personal.address.AddressDelegate;
 import com.nicro.latte.ec.main.personal.list.ListAdapter;
 import com.nicro.latte.ec.main.personal.list.ListBean;
 import com.nicro.latte.ec.main.personal.list.ListItemType;
+import com.nicro.latte.util.callback.CallbackManager;
+import com.nicro.latte.util.callback.CallbackType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +51,10 @@ public class SettingsDelegate extends LatteDelegate {
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if (isChecked) {
                             Toast.makeText(getContext(), "打开推送", Toast.LENGTH_SHORT).show();
+                            CallbackManager.getInstance().getCallback(CallbackType.TAG_OPEN_PUSH).executeCallback(null);
                         } else {
                             Toast.makeText(getContext(), "关闭推送", Toast.LENGTH_SHORT).show();
+                            CallbackManager.getInstance().getCallback(CallbackType.TAG_STOP_PUSH).executeCallback(null);
                         }
                     }
                 })

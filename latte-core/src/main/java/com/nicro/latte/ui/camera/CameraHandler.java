@@ -106,8 +106,10 @@ public class CameraHandler implements View.OnClickListener {
             DIALOG.cancel();
         } else if (id == R.id.photodialog_btn_native) {
             pickPhoto();
+            DIALOG.cancel();
         } else if (id == R.id.photodialog_btn_take) {
             takePhoto();
+            DIALOG.cancel();
         }
 
 
