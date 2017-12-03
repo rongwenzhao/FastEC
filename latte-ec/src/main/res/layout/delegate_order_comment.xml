@@ -61,5 +61,12 @@
 
     </RelativeLayout>
 
-
+    <com.nicro.latte.ui.widget.AutoPhotoLayout
+        android:id="@+id/custom_auto_photo_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon_size="10sp"
+        app:item_margin="2"
+        app:line_count="3"
+        app:max_couunt="10" />
 </LinearLayout>
