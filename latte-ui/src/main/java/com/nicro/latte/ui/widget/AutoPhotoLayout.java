@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 仿微信图片选择器功能的控件
  * Created by rongwenzhao on 2017/12/2.
  */
 
