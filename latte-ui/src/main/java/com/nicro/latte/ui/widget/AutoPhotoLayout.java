@@ -214,13 +214,12 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
             //一行占满之后，怎样换到下一行
             //换行
             if (lineWidth + childWidth > sizeWidth - getPaddingLeft() - getPaddingRight()) {
-                //此处与傅令杰算法不同
                 //对比得到最大宽度
                 width = Math.max(width, lineWidth);
                 //换行之后，重置lineWidth
-                lineWidth = 0;
+                lineWidth = childWidth;
                 height += lineHeight;
-                lineHeight = 0;
+                lineHeight = childHeight;
             } else {
                 //没换行
                 //叠加行宽
@@ -229,8 +228,8 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
                 lineHeight = Math.max(lineHeight, childHeight);
             }
             //得到最后一个子view
+            //设置该控件的宽高
             if (i == cCount - 1) {
-                //就是加号么
                 width = Math.max(lineWidth, width);
                 height += lineHeight;
             }
@@ -288,7 +287,8 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
                 lineWidth = 0;
                 lineHeight = childHeight + lp.topMargin + lp.bottomMargin;
                 //重置view集合
-                mLineViews.clear();
+                //mLineViews.clear();
+                mLineViews = new ArrayList<>();
             }
             lineWidth += childWidth + lp.leftMargin + lp.rightMargin;
             lineHeight = Math.max(lineHeight, childHeight + lp.topMargin + lp.bottomMargin);
