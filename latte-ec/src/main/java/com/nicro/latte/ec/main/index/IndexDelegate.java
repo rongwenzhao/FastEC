@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.joanzapata.iconify.widget.IconTextView;
 import com.nicro.latte.delegates.bottom.BottomItemDelegate;
@@ -17,8 +18,12 @@ import com.nicro.latte.ec.R2;
 import com.nicro.latte.ec.main.EcBottomDelegate;
 import com.nicro.latte.ui.recycler.BaseDecoration;
 import com.nicro.latte.ui.refresh.RefreshHandler;
+import com.nicro.latte.util.callback.CallbackManager;
+import com.nicro.latte.util.callback.CallbackType;
+import com.nicro.latte.util.callback.IGlobalCallback;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 首页delegate
@@ -38,11 +43,27 @@ public class IndexDelegate extends BottomItemDelegate {
     @BindView(R2.id.et_search_view)
     AppCompatEditText mSearchView = null;
 
+    @OnClick(R2.id.icon_index_scan)
+    void onScanClick() {
+        startScanWithCheck(this.getParentDelegate());
+    }
+
     RefreshHandler mRefreshHandler = null;
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         mRefreshHandler = RefreshHandler.create(mRefreshLayout, mRecylerView, new IndexDataConverter());
+        /**
+         * 添加扫码二维码的回调监听。扫描成功后，可在此处做些需要的处理。
+         */
+        CallbackManager.getInstance().addCallback(CallbackType.ON_SCAN, new IGlobalCallback<String>() {
+            @Override
+            public void executeCallback(@Nullable String args) {
+                //args是二维码扫描返回的结果
+                Toast.makeText(getContext(), "扫描结果 = " + args, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void initRefreshLayout() {

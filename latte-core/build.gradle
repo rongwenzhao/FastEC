@@ -95,4 +95,6 @@ dependencies {
     //util工具包，里面提供很多有用的方法
     // https://github.com/Blankj/AndroidUtilCode/tree/master/utilcode
     compile 'com.blankj:utilcode:1.9.10'
+    //二维码扫描相关 https://github.com/dm77/barcodescanner
+    compile 'me.dm7.barcodescanner:zbar:1.9.8'
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.nicro.latte.ui.camera.CameraImageBean;
 import com.nicro.latte.ui.camera.LatteCamera;
 import com.nicro.latte.ui.camera.RequestCodes;
+import com.nicro.latte.ui.scanner.ScannerDelegate;
 import com.nicro.latte.util.callback.CallbackManager;
 import com.nicro.latte.util.callback.CallbackType;
 import com.nicro.latte.util.callback.IGlobalCallback;
@@ -46,6 +47,25 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
         PermissionCheckerDelegatePermissionsDispatcher.checkWriteWithCheck(this);
         PermissionCheckerDelegatePermissionsDispatcher.checkRedWithCheck(this);
         PermissionCheckerDelegatePermissionsDispatcher.startCameraWithCheck(this);
+    }
+
+    /**
+     * 扫描二维码，不直接调用
+     *
+     * @param delegate
+     */
+    @NeedsPermission(Manifest.permission.CAMERA)
+    void startScan(BaseDelegate delegate) {
+        delegate.getSupportDelegate().startForResult(new ScannerDelegate(), RequestCodes.SCAN);
+    }
+
+    /**
+     * 扫描二维码，真正调用的方法
+     */
+    public void startScanWithCheck(BaseDelegate delegate) {
+        PermissionCheckerDelegatePermissionsDispatcher.checkWriteWithCheck(this);
+        PermissionCheckerDelegatePermissionsDispatcher.checkRedWithCheck(this);
+        PermissionCheckerDelegatePermissionsDispatcher.startScanWithCheck(this, delegate);
     }
 
     @OnPermissionDenied(Manifest.permission.CAMERA)
