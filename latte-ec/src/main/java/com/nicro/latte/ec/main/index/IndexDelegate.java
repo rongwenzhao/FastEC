@@ -16,6 +16,7 @@ import com.nicro.latte.delegates.bottom.BottomItemDelegate;
 import com.nicro.latte.ec.R;
 import com.nicro.latte.ec.R2;
 import com.nicro.latte.ec.main.EcBottomDelegate;
+import com.nicro.latte.ec.main.index.search.SearchDelegate;
 import com.nicro.latte.ui.recycler.BaseDecoration;
 import com.nicro.latte.ui.refresh.RefreshHandler;
 import com.nicro.latte.util.callback.CallbackManager;
@@ -30,7 +31,7 @@ import butterknife.OnClick;
  * Created by rongwenzhao on 2017/11/25.
  */
 
-public class IndexDelegate extends BottomItemDelegate {
+public class IndexDelegate extends BottomItemDelegate implements View.OnFocusChangeListener {
 
     @BindView(R2.id.rv_index)
     RecyclerView mRecylerView = null;
@@ -64,6 +65,9 @@ public class IndexDelegate extends BottomItemDelegate {
 
             }
         });
+
+        //添加搜索框mSearchView的获取焦点的事件
+        mSearchView.setOnFocusChangeListener(this);
     }
 
     private void initRefreshLayout() {
@@ -105,5 +109,13 @@ public class IndexDelegate extends BottomItemDelegate {
     @Override
     public Object setLayout() {
         return R.layout.delegate_index;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            v.clearFocus();
+            getParentDelegate().getSupportDelegate().start(new SearchDelegate());
+        }
     }
 }
