@@ -27,4 +27,8 @@ public abstract class DataConverter {
         return mJsonData;
     }
 
+    public void clearData(){
+        ENTITIES.clear();
+    }
+
 }

@@ -98,6 +98,41 @@ public class RefreshHandler implements
                 .get();
     }
 
+    private void paging(final String url) {
+        final int pageSize = BEAN.getPageSize();
+        final int currentCount = BEAN.getCurrentCount();
+        final int total = BEAN.getTotal();
+        final int index = BEAN.getPageIndex();
+
+        if (mAdapter.getData().size() < pageSize || currentCount >= total) {
+            //此时不需要分页
+            mAdapter.loadMoreEnd(true);
+        } else {
+            //分页加载
+            Latte.getHandler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    RestClient.builder()
+                            .url(url + index)
+                            .success(new ISuccess() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    LatteLogger.json("paging", response);
+                                    //CONVERTER.clearData();
+                                    mAdapter.addData(CONVERTER.setJsonData(response).convert());
+                                    //累加数量
+                                    BEAN.setCurrentCount(mAdapter.getData().size());
+                                    mAdapter.loadMoreComplete();
+                                    BEAN.addIndex();
+                                }
+                            })
+                            .build()
+                            .get();
+                }
+            }, 1000);
+        }
+    }
+
     //SwipeRefreshLayout的内部接口，用来监听SwipeRefreshLayout的refresh操作
     @Override
     public void onRefresh() {
@@ -107,6 +142,6 @@ public class RefreshHandler implements
     @Override
     public void onLoadMoreRequested() {
         LatteLogger.d("下拉刷新");
-
+        paging("refresh.php?index=");
     }
 }
